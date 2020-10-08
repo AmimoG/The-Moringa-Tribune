@@ -23,10 +23,10 @@ if config('MODE')=="dev":
    DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': config('tribune'),
-           'USER': config('moringa'),
-           'PASSWORD': config('pluto1'),
-           'HOST': config('localhost'),
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
            'PORT': '',
        }
        
