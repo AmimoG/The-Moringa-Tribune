@@ -1,4 +1,5 @@
 {%extends 'all-news/base.html'%}
+{% load bootstrap3 %}
 {% block content %} 
 {{ block.super}}
 
@@ -23,21 +24,20 @@
 
     </div>
   </div>
+
+    <!-- Looping through news end   -->
+  <div class="container-fluid">
+
+    <form  action="{%url 'newsToday'%}" method="post">
+      {%csrf_token%}
+
+      {% bootstrap_form letterForm layout='inline' %}
+      <input type="submit" value="Subscribe">
+    </form>
+
+  </div>
   {% endfor %}
 </div>
 
 {% endblock %}
 
-<!-- <div class="card text-center">
-  <div class="card-header">
-    <img src="{{news_item.article_image.url}}" class="img-responsive" width="350px" height="300px" alt="Image">
-  </div>
-  <div class="card-body">
-    <h2 class="text-center"> {{ news_item.title }} </h2>
-    <h2 class="text-center"> {{ news_item.post }} </h2>
-    <a href="#" class="btn btn-primary">Read More</a>
-  </div>
-  <div class="card-footer text-muted">
-    2 days ago
-  </div>
-</div> -->
