@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http  import HttpResponse,Http404
 import datetime as dt
 from .models import Article
+from .forms import NewsLetterForm
 
 # Create your views here.
 def welcome(request):
@@ -10,12 +11,21 @@ def welcome(request):
 def news_of_day(request):
     date = dt.date.today()
     news = Article.todays_news()
-    return render(request, 'all-news/today-news.html', {"date": date,"news":news})
+    
+    if request.method == 'POST':
+        form = NewsLetterForm(request.POST)
+        if form.is_valid():
+            print('valid')
+    else:
+        form = NewsLetterForm()
+    return render(request, 'all-news/today-news.html', {"date": date,"news":news,"letterForm":form})
 
 # View Function to present news from past days
 def past_days_news(request, past_date):
     try:
         # Converts data from the string Url
+      
+
         date = dt.datetime.strptime(past_date, '%Y-%m-%d').date()
     except ValueError:
         # Raise 404 error when ValueError is thrown
