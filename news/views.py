@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404,HttpResponseRedirect
 import datetime as dt
-from .models import Article
+from .models import Article, NewsLetterRecipients
 from .forms import NewsLetterForm
 from .email import send_welcome_email
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def welcome(request):
@@ -29,6 +30,7 @@ def news_of_day(request):
     return render(request, 'all-news/today-news.html', {"date": date,"news":news,"letterForm":form})
 
 # View Function to present news from past days
+
 def past_days_news(request, past_date):
     try:
         # Converts data from the string Url
@@ -70,6 +72,7 @@ def search_results(request):
         message = "You haven't searched for any term"
         return render(request, 'all-news/search.html',{"message":message})
 
+@login_required(login_url='/accounts/login/')
 def article(request,article_id):
     try:
         article = Article.objects.get(id = article_id)
